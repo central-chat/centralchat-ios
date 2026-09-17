@@ -1,0 +1,32 @@
+# XcodeGen (`brew install xcodegen`, then `xcodegen generate`) — an .xcodeproj is
+# generated rather than committed, so there is no merge conflict in a binary file
+# and no stale build settings nobody remembers setting.
+name: CentralChatExample
+options:
+  bundleIdPrefix: chat.central.widget
+  deploymentTarget:
+    iOS: "15.0"
+packages:
+  CentralChat:
+    # The library source beside this example, so a change there is visible here
+    # without publishing anything.
+    path: ..
+targets:
+  CentralChatExample:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    dependencies:
+      - package: CentralChat
+    info:
+      path: Sources/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        # Only what this demo leaves on. An app whose chat account has these
+        # switched off declares neither.
+        NSMicrophoneUsageDescription: Record a voice message in the chat.
+        NSCameraUsageDescription: Take a photo to send in the chat.
+        NSPhotoLibraryUsageDescription: Choose a photo to send in the chat.
+        NSLocationWhenInUseUsageDescription: Share where you are in the chat.
